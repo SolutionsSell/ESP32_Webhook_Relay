@@ -4,6 +4,11 @@ import machine
 import json
 
 led = machine.Pin(2, machine.Pin.OUT)  # Onboard LED
+
+def connect_to_network:
+    sta_if = network.WLAN(network.STA_IF); sta_if.active(True) # define sta_if
+    sta_if.connect("<ssid>", "<password>") # connect to wifi
+    print(network.WLAN(network.STA_IF).ifconfig()) # print ip address
     
 def parse_request(request):
     """Extract JSON payload from POST request"""
