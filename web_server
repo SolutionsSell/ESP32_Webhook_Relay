@@ -4,13 +4,18 @@ import machine
 import json
 
 led = machine.Pin(2, machine.Pin.OUT)  # Onboard LED
-
+    
 def parse_request(request):
     """Extract JSON payload from POST request"""
     try:
-        _, body = request.split("\r\n\r\n", 1)  # Get JSON part
-        data = json.loads(body)
-        return data
+        json_start = request.find("\r\n\r\n") + 4  # Find start of body
+        if json_start < 4:
+            return {}
+
+        json_data = request[json_start:].strip()  # Extract JSON body
+        print("Extracted JSON:", json_data)  # Debugging output
+
+        return json.loads(json_data)  # Convert to dictionary
     except Exception as e:
         print("Error parsing request:", e)
         return {}
@@ -42,21 +47,28 @@ print("Web server running...")
 
 while True:
     conn, addr = s.accept()
-    request = conn.recv(1024).decode()
-    print("Request:", request)
+    request = conn.recv(2048).decode()  # Increased buffer size
+    print("Request:", request)  # Debugging output
 
     if "POST" in request:  # Expecting a webhook
         data = parse_request(request)
-        if data.get("event_type") == "alarm":
-            led.value(1)  # Turn LED on
-        else:
-            led.value(0)  # Turn LED off for other events
 
+        if "data" in data:
+            event_type = data["data"].get("event_type", "")
+            
+            if event_type == "armed":
+                print("🔵 Site ARMED - Turning LED ON")
+                led.value(1)  # Turn LED on
+            elif event_type == "disarmed":
+                print("⚫ Site DISARMED - Turning LED OFF")
+                led.value(0)  # Turn LED off
+            else:
+                print(f"ℹ️ Unhandled event: {event_type}")
+        
         response = "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"status\":\"ok\"}"
     else:
         response = web_page()
 
     conn.send(response)
     conn.close()
-
 
