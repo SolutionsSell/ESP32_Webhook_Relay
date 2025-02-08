@@ -1,0 +1,62 @@
+import network
+import socket
+import machine
+import json
+
+led = machine.Pin(2, machine.Pin.OUT)  # Onboard LED
+
+def parse_request(request):
+    """Extract JSON payload from POST request"""
+    try:
+        _, body = request.split("\r\n\r\n", 1)  # Get JSON part
+        data = json.loads(body)
+        return data
+    except Exception as e:
+        print("Error parsing request:", e)
+        return {}
+
+def web_page():
+    """Simple status page"""
+    led_state = "ON" if led.value() else "OFF"
+    return f"""
+    HTTP/1.1 200 OK
+    Content-Type: text/html
+
+    <!DOCTYPE html>
+    <html>
+    <head><title>ESP32 Web Server</title></head>
+    <body>
+        <h1>ESP32 Web Server</h1>
+        <p>LED is <strong>{led_state}</strong></p>
+    </body>
+    </html>
+    """
+
+# Start web server
+addr = socket.getaddrinfo("0.0.0.0", 80)[0][-1]
+s = socket.socket()
+s.bind(addr)
+s.listen(5)
+
+print("Web server running...")
+
+while True:
+    conn, addr = s.accept()
+    request = conn.recv(1024).decode()
+    print("Request:", request)
+
+    if "POST" in request:  # Expecting a webhook
+        data = parse_request(request)
+        if data.get("event_type") == "alarm":
+            led.value(1)  # Turn LED on
+        else:
+            led.value(0)  # Turn LED off for other events
+
+        response = "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"status\":\"ok\"}"
+    else:
+        response = web_page()
+
+    conn.send(response)
+    conn.close()
+
+
