@@ -12,7 +12,7 @@ Here is a link to the ESP32 that we used: https://www.amazon.com/dp/B08D5ZD528?r
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Steps taken to achieve goal:
 
-Run the web server on the ESP32:
+Part 1: Run the web server on the ESP32
 
 First you must install a couple of things.
 Thonny IDE: https://thonny.org/
@@ -21,7 +21,9 @@ Micropython for ESP32-WROOM: https://micropython.org/download/ESP32_GENERIC/
 
 ESP32 COM driver for windows (windows only): https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads
 
-Reference this video here for the rest of this section: https://www.youtube.com/watch?v=qoogOzSM0cM&ab_channel=ElectronicClinic
+Reference this video here for the rest of the Micropython ESP32 setup: https://www.youtube.com/watch?v=qoogOzSM0cM&ab_channel=ElectronicClinic
+
+Once we have everything set up, we need to then run the code in the web_server file and continue to part 2.
 
 
 
@@ -29,9 +31,7 @@ Reference this video here for the rest of this section: https://www.youtube.com/
 
 
 
-
-
-Publicly Accessible Web server on the ESP32:
+Part 2: Publicly Accessible Web server on the ESP32
 
 To achieve this part of the project, Mehul has found a way to use NGROK to make our server publicly accessible. There are other ways to this as well but NGROK is the easiest due to our networking situation.
 
@@ -43,5 +43,7 @@ Once installed, open up your terminal of choice and run the command:
 ngrok http <esp32's IP>:80
 
 You will then receive a link that is generated to send the webhooks to. Example: https://4d1a-27-132-122-204.ngrok-free.app
+
+
 
 
