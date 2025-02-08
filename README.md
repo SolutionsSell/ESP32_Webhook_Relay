@@ -7,3 +7,4 @@ The steps to achieving this goal are we need to have a publicly accessible web s
 
 Example, Verkada panic button is pressed which sends a webhook event to the server. We ingest that and flip a relay that is connected to a 3rd party notification system. The 3rd party notification system is then triggered to send mass notifications across a school to let everyone know there is an emergency.
 
+Here is a link to the ESP32 that we used: https://www.amazon.com/dp/B08D5ZD528?ref=ppx_yo2ov_dt_b_fed_asin_title
