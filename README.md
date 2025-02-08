@@ -16,7 +16,9 @@ Run the web server on the ESP32:
 
 First you must install a couple of things.
 Thonny IDE: https://thonny.org/
+
 Micropython for ESP32-WROOM: https://micropython.org/download/ESP32_GENERIC/
+
 ESP32 COM driver for windows (windows only): https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads
 
 Reference this video here for the rest of this section: https://www.youtube.com/watch?v=qoogOzSM0cM&ab_channel=ElectronicClinic
