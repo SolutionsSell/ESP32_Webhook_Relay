@@ -15,6 +15,7 @@ Steps taken to achieve goal:
 Part 1: Run the web server on the ESP32
 
 First you must install a couple of things.
+
 Thonny IDE: https://thonny.org/
 
 Micropython for ESP32-WROOM: https://micropython.org/download/ESP32_GENERIC/
