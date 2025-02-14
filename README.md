@@ -22,8 +22,6 @@ Micropython for ESP32-WROOM: https://micropython.org/download/ESP32_GENERIC/
 
 ESP32 COM driver for windows (windows only): https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads
 
-Another install link is Micropython for the ESP32: https://micropython.org/download/ESP32_GENERIC/
-
 Reference this video here for the rest of the Micropython ESP32 setup: https://www.youtube.com/watch?v=qoogOzSM0cM&ab_channel=ElectronicClinic
 
 Once we have everything set up, we need to then run the code in the web_server file and continue to part 2.
